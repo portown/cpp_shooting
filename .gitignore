@@ -1,0 +1,4 @@
+*.o
+*.d
+
+/cpp_shooting.exe
