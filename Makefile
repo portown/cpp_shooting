@@ -2,6 +2,7 @@
 
 CXXFLAGS += -Wall -Wextra -Werror -pedantic-errors -std=c++17
 LDFLAGS += -static-libgcc -static-libstdc++ -mwindows
+LIBS += -lole32 -ld2d1
 
 # for debug
 CXXFLAGS += -g -O0
@@ -26,7 +27,7 @@ clean:
 
 
 $(OUT): $(OBJ)
-	$(LINK.o) -o $@ $^
+	$(LINK.o) -o $@ $^ $(LIBS)
 
 %.o: %.cpp
 	$(COMPILE.cc) -o $@ $<
