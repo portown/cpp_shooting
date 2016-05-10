@@ -117,7 +117,7 @@ void ns::GameView::onPaint() {
         if (FAILED(result)) {
             return;
         }
-        renderTarget_.reset(renderTarget, [](ID2D1HwndRenderTarget* p) { p->Release(); });
+        renderTarget_.reset(renderTarget, std::mem_fn(&IUnknown::Release));
     }
 
     renderTarget_->BeginDraw();

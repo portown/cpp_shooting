@@ -22,7 +22,7 @@ auto ns::App::create(
     if (FAILED(D2D1CreateFactory(D2D1_FACTORY_TYPE_SINGLE_THREADED, &factoryPtr))) {
         return std::nullopt;
     }
-    app.direct2dFactory_.reset(factoryPtr, [](ID2D1Factory* p) { p->Release(); });
+    app.direct2dFactory_.reset(factoryPtr, std::mem_fn(&IUnknown::Release));
 
     app.view_ = GameView::create(hInstance, nCmdShow, app.direct2dFactory_);
 
