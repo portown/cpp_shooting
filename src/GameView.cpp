@@ -2,6 +2,8 @@
 
 #include "GameView.hpp"
 
+#include "WinUtil.hpp"
+
 
 namespace ns = shooting::ui;
 
@@ -14,7 +16,7 @@ auto ns::GameView::create(
     wc.cbClsExtra = 0;
     wc.cbSize = sizeof(WNDCLASSEX);
     wc.cbWndExtra = sizeof(LONG_PTR);
-    wc.hbrBackground = reinterpret_cast<HBRUSH>(GetStockObject(WHITE_BRUSH));
+    wc.hbrBackground = win::getStockObject(win::WhiteBrush);
     wc.hCursor = nullptr;
     wc.hIcon = reinterpret_cast<HICON>(LoadImage(nullptr, IDI_APPLICATION, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED));
     wc.hIconSm = reinterpret_cast<HICON>(LoadImage(nullptr, IDI_APPLICATION, IMAGE_ICON, 0, 0, LR_DEFAULTSIZE | LR_SHARED));
@@ -102,12 +104,8 @@ LRESULT CALLBACK ns::GameView::windowProcedure(
 
 void ns::GameView::onPaint() {
     if (!renderTarget_) {
-        RECT rect;
-        GetClientRect(hWnd_, &rect);
-
-        auto const size = D2D1::SizeU(
-                rect.right - rect.left,
-                rect.bottom - rect.top);
+        auto const rect = win::getClientRect(hWnd_);
+        auto const size = D2D1::SizeU(win::width(rect), win::height(rect));
 
         ID2D1HwndRenderTarget* renderTarget;
         auto const result = direct2dFactory_->CreateHwndRenderTarget(
