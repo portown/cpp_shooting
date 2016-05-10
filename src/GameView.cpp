@@ -33,7 +33,8 @@ auto ns::GameView::create(
     size.cx += GetSystemMetrics(SM_CXFIXEDFRAME) * 2;
     size.cy += GetSystemMetrics(SM_CYFIXEDFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION);
 
-    auto const view = std::shared_ptr<GameView>{new GameView()};
+    struct GameViewImpl : public GameView {};   // for make_shared
+    auto const view = std::make_shared<GameViewImpl>();
     view->direct2dFactory_ = direct2dFactory;
 
     auto const window = CreateWindowEx(
