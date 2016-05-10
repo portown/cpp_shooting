@@ -7,6 +7,8 @@
 
 #include <memory>
 
+#include "ComUtil.hpp"
+
 
 namespace shooting {
     namespace ui {
@@ -15,7 +17,7 @@ namespace shooting {
             static auto create(
                     HINSTANCE hInstance,
                     int nCmdShow,
-                    std::shared_ptr<ID2D1Factory> direct2dFactory) -> std::shared_ptr<GameView>;
+                    std::shared_ptr<ID2D1Factory> direct2dFactory) -> std::unique_ptr<GameView>;
 
         private:
             explicit constexpr GameView() = default;
@@ -24,7 +26,7 @@ namespace shooting {
 
             HWND hWnd_{};
             std::shared_ptr<ID2D1Factory> direct2dFactory_;
-            std::shared_ptr<ID2D1HwndRenderTarget> renderTarget_;
+            com::ComUniquePtr<ID2D1HwndRenderTarget> renderTarget_;
         };
     }
 }

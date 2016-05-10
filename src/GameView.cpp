@@ -9,7 +9,7 @@ namespace ns = shooting::ui;
 auto ns::GameView::create(
         HINSTANCE const hInstance,
         int const nCmdShow,
-        std::shared_ptr<ID2D1Factory> const direct2dFactory) -> std::shared_ptr<GameView> {
+        std::shared_ptr<ID2D1Factory> const direct2dFactory) -> std::unique_ptr<GameView> {
     WNDCLASSEX wc;
     wc.cbClsExtra = 0;
     wc.cbSize = sizeof(WNDCLASSEX);
@@ -33,8 +33,8 @@ auto ns::GameView::create(
     size.cx += GetSystemMetrics(SM_CXFIXEDFRAME) * 2;
     size.cy += GetSystemMetrics(SM_CYFIXEDFRAME) * 2 + GetSystemMetrics(SM_CYCAPTION);
 
-    struct GameViewImpl : public GameView {};   // for make_shared
-    auto const view = std::make_shared<GameViewImpl>();
+    struct GameViewImpl : public GameView {};   // for make_unique
+    auto view = std::make_unique<GameViewImpl>();
     view->direct2dFactory_ = direct2dFactory;
 
     auto const window = CreateWindowEx(
@@ -117,7 +117,7 @@ void ns::GameView::onPaint() {
         if (FAILED(result)) {
             return;
         }
-        renderTarget_.reset(renderTarget, std::mem_fn(&IUnknown::Release));
+        renderTarget_.reset(renderTarget);
     }
 
     renderTarget_->BeginDraw();

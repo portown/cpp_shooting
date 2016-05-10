@@ -17,6 +17,9 @@ namespace shooting {
             static auto create(HINSTANCE hInstance, int nCmdShow) -> std::optional<App>;
             ~App();
 
+            App(App&&) = default;
+            App& operator=(App&&) = default;
+
             auto run() -> int;
 
         private:
@@ -26,7 +29,7 @@ namespace shooting {
             int const nCmdShow_;
             std::shared_ptr<ID2D1Factory> direct2dFactory_;
 
-            std::shared_ptr<GameView> view_;
+            std::unique_ptr<GameView> view_;
         };
     }
 }
