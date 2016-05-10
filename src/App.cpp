@@ -9,11 +9,6 @@
 namespace ns = shooting::ui;
 
 
-namespace std {
-    using experimental::nullopt;
-}
-
-
 auto ns::App::create(
         HINSTANCE const hInstance,
         int const nCmdShow) -> std::optional<App> {

@@ -5,14 +5,9 @@
 #include <windows.h>
 #include <d2d1.h>
 
-#include <experimental/optional>
+#include "optional.hpp"
 
 #include "GameView.hpp"
-
-
-namespace std {
-    using experimental::optional;
-}
 
 
 namespace shooting {
