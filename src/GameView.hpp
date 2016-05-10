@@ -18,11 +18,11 @@ namespace shooting {
                     std::shared_ptr<ID2D1Factory> direct2dFactory) -> std::shared_ptr<GameView>;
 
         private:
-            explicit constexpr GameView() : hWnd_{} {}
+            explicit constexpr GameView() = default;
             static LRESULT CALLBACK windowProcedure(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
             void onPaint();
 
-            HWND hWnd_;
+            HWND hWnd_{};
             std::shared_ptr<ID2D1Factory> direct2dFactory_;
             std::shared_ptr<ID2D1HwndRenderTarget> renderTarget_;
         };
